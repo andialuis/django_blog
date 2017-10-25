@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>Blog</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- medium style editor -->
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.2/js/medium-editor.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.2/css/medium-editor.min.css">
+
+
+
+	<!-- custom css -->
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/blog.css'%}">
+
+	<!-- fonts -->
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+
+</head>
+<body>
+	<!-- navbar -->
+
+	<nav class="navbar navbar-default techfont custom-navbar">
+		<div class="container">
+			<a class="navbar-brand bigbrand" href="{% url 'post_list' %}">My Blog</a>
+			<button data-toggle="collapse" class="navbar-toggle" data-target=".navHeaderCollapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+
+			</button>
+			<div class="collapse navbar-collapse navHeaderCollapse">
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'about' %}">About</a></li>
+					<li><a href="www.github.com">Github</a></li>
+					<li><a href="www.linkedin.com">LinkedIn</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+					<li><a href="{% url 'post_new'%}">New Post</a></li>
+					<li><a href="{% url 'post_draft_list'%}">Drafts</a></li>
+					<li><a href="{% url 'logout'%}">Log Out</a></li>
+					<li><a>Welcome:{{user.username}}</a></li>
+					{% else %}
+					<li><a class="nav navbar-right" href="{% url 'login'%}"><span class="glyphicon glyphicon-user"></span></a></li>
+					{% endif%}
+
+				</ul>
+			</div>
+		</div>
+		
+	</nav>
+
+	<!-- content block -->
+	<div class="content container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="blog_posts">
+					{% block content%}
+					{% endblock %}
+				</div>
+			</div>
+			<div class="">
+				
+			</div>
+		</div>
+	</div>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>
